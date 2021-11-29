@@ -17,4 +17,3 @@ source(here::here("R", "data_wildfinder.R"))
 
 # run exodplyr
 source(here::here("exercices", "exo_dplyr.R"))
-# lala
