@@ -20,5 +20,5 @@ hist(mam_per_eco,
      breaks = 50,
      xlab = "Nombre de mammiferes",
      ylab = "Nombre d'ecoregions",
-     col = "forestgreen")
+     col = "red")
 dev.off()
