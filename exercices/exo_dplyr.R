@@ -17,7 +17,7 @@ mam_per_eco <- table(dat$ecoregion_id)
 
 png(filename = here::here("outputs", "exo_dplyr_hist_mams.png"))
 hist(mam_per_eco,
-     breaks = 50,
+     breaks = 40,
      xlab = "Nombre de mammiferes",
      ylab = "Nombre d'ecoregions",
      col = "red")
