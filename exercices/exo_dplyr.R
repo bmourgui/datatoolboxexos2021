@@ -91,7 +91,7 @@ data %>%
   dplyr::filter(n > 100) %>%
   ggplot2::ggplot() +
   ggplot2::aes(x = n, y = forcats::fct_reorder(family, n)) +
-  ggplot2::geom_col() + # same as geom_bar() when counts are already made
+  ggplot2::geom_col() + # same as geom_bar() when counts have been made
   ggplot2::xlab("Counts") +
   ggplot2::ylab("Family") +
   ggplot2::ggtitle("Number of entries per family") +
