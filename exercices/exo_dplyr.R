@@ -61,10 +61,56 @@ pantheria <- readr::read_delim("data/pantheria-traits/PanTHERIA_1-0_WR05_Aug2008
 pantheria %>%
   dplyr::mutate_at(c("MSW05_Order", "MSW05_Family"),
                    forcats::as_factor) %>%
-  dplyr::rename(adult_mass = "5-1_AdultBodyMass_g",
-                dispersal_age = "7-1_DispersalAge_d",
-                gestation_len = "9-1_GestationLen_d",
-                home_range = "22-2_HomeRange_Indiv_km2",
-                litters_year = "16-1_LittersPerYear",
-                max_longevity = "17-1_MaxLongevity_m") %>%
-  dplyr::select(species, family,)
+  dplyr::rename(family = "MSW05_Family",
+                order = "MSW05_Order",
+                mass = "5-1_AdultBodyMass_g",
+                dispersal = "7-1_DispersalAge_d",
+                gestation = "9-1_GestationLen_d",
+                range = "22-2_HomeRange_Indiv_km2",
+                litters = "16-1_LittersPerYear",
+                longevity = "17-1_MaxLongevity_m") %>%
+  dplyr::select(family, order, longevity, range, litters) %>%
+  dplyr::mutate_all(function(x)dplyr::na_if(x, -999)) -> data
+
+data %>%
+  dplyr::count(family)
+
+data %>%
+  dplyr::count(order)
+
+data %>%
+  dplyr::group_by(family) %>%
+  dplyr::summarise(avg_range = mean(range, na.rm = TRUE),
+                   sd_range = sd(range, na.rm = TRUE),
+                   size_sample = dplyr::n())
+
+# Plot 1
+data %>%
+  dplyr::group_by(family) %>%
+  dplyr::count()
+  dplyr::filter(n > 100) %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(x = n, y = forcats::fct_reorder(family, n)) +
+  ggplot2::geom_col() + # same as geom_bar() when counts are already made
+  ggplot2::xlab("Counts") +
+  ggplot2::ylab("Family") +
+  ggplot2::ggtitle("Number of entries per family") +
+  ggplot2::theme_bw()
+
+# Plot 2
+data %>%
+  dplyr::filter(!is.na(litters)) %>%
+  dplyr::filter(!is.na(longevity)) %>%
+  dplyr::group_by(family) %>%
+  dplyr::mutate(n = dplyr::n()) %>%
+  dplyr::filter(n > 20) %>%
+  dplyr::right_join(sub_data) %>%
+  dplyr::mutate(family2 = forcats::fct_drop(family)) %>%
+  ggplot2::ggplot() +
+  ggplot2::aes(y = litters, x = longevity, color = family) +
+  ggplot2::geom_point() +
+  ggplot2::geom_smooth(method = "lm") +
+  ggplot2::facet_wrap(~ family, nrow = 2) +
+  ggplot2::xlab("Litter size") +
+  ggplot2::ylab("Longevity") +
+  ggplot2::ggtitle("Relationship between longevity and litter size")
