@@ -55,3 +55,16 @@ data_n_realm %>%
   dplyr::left_join(data_n_biome) %>%
   dplyr::left_join(data_n_ecor)
 
+# Exo 3 : ggplot2
+pantheria <- readr::read_delim("data/pantheria-traits/PanTHERIA_1-0_WR05_Aug2008.txt", delim = "\t")
+
+pantheria %>%
+  dplyr::mutate_at(c("MSW05_Order", "MSW05_Family"),
+                   forcats::as_factor) %>%
+  dplyr::rename(adult_mass = "5-1_AdultBodyMass_g",
+                dispersal_age = "7-1_DispersalAge_d",
+                gestation_len = "9-1_GestationLen_d",
+                home_range = "22-2_HomeRange_Indiv_km2",
+                litters_year = "16-1_LittersPerYear",
+                max_longevity = "17-1_MaxLongevity_m") %>%
+  dplyr::select(species, family,)
