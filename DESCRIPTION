@@ -11,7 +11,10 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
+    dplyr,
     here,
-    readr
+    magrittr,
+    readr,
+    tidyr
 URL: https://github.com/bmourgui/datatoolboxexos2021
 BugReports: https://github.com/bmourgui/datatoolboxexos2021/issues

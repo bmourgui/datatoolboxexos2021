@@ -10,6 +10,7 @@
 
 # install dependences (packages used)
 devtools::install_deps()
+library(magrittr)
 
 # load functions
 # devtools::load_all() # but does not work with package 'targets'
