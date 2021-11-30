@@ -1,6 +1,6 @@
 #' Import WWF Species Data
 #'
-#' @return A tiblle containing species ID & taxonomy
+#' @return A tibble containing species ID & taxonomy
 #' @export
 #'
 read_sp_list <- function() {
@@ -14,7 +14,7 @@ read_sp_list <- function() {
 
 #' Import WWF Ecoregions Data
 #'
-#' @return A tiblle containing ecoregions ID & taxonomy
+#' @return A tibble containing ecoregions ID & taxonomy
 #' @export
 #
 read_eco_list <- function() {
